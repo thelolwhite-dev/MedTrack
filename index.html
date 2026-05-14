@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediTrack - Cuidando tu Salud Integral</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #4A90E2;
+            --primary-teal: #2DBFA8;
+            --dark-blue: #0F4C7E;
+            --light-bg: #F5F7FA;
+            --white: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-light: #7F8C8D;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --gradient: linear-gradient(135deg, #4A90E2 0%, #2DBFA8 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* ============ LOGIN PAGE ============ */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--gradient);
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 50px 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.2);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .login-logo h1 {
+            font-size: 28px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .login-logo p {
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E8EEF5;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E8EEF5;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #E8EEF5;
+        }
+
+        .social-btn {
+            padding: 10px;
+            border: 2px solid #E8EEF5;
+            border-radius: 10px;
+            background: var(--white);
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-blue);
+            background: rgba(74, 144, 226, 0.05);
+        }
+
+        /* ============ APP LAYOUT ============ */
+        .app-container {
+            display: none;
+            flex-direction: column;
+            height: 100vh;
+            background-color: var(--light-bg);
+        }
+
+        .app-container.active {
+            display: flex;
+        }
+
+        .app-header {
+            background: var(--white);
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .user-info h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* ============ MAIN CONTENT ============ */
+        .app-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 80px;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .screen-padding {
+            padding: 20px;
+        }
+
+        /* ============ DASHBOARD ============ */
+        .welcome-banner {
+            background: var(--gradient);
+            border-radius: 15px;
+            padding: 30px;
+            color: var(--white);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(74, 144, 226, 0.2);
+        }
+
+        .welcome-banner h2 {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-banner p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* ============ ALERTS ============ */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-item {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--warning);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .alert-item.critical {
+            border-left-color: var(--danger);
+        }
+
+        .alert-item.success {
+            border-left-color: var(--success);
+        }
+
+        .alert-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .alert-content p {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .alert-badge {
+            background: var(--warning);
+            color: var(--white);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .alert-badge.critical {
+            background: var(--danger);
+        }
+
+        /* ============ INVENTORY ============ */
+        .medicine-card {
+            background: var(--white);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .medicine-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .medicine-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .medicine-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .medicine-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .medicine-status.low {
+            background: rgba(227, 76, 60, 0.1);
+            color: var(--danger);
+        }
+
+        .medicine-status.medium {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        .medicine-status.high {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #E8EEF5;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .medicine-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        .info-item {
+            color: var(--text-light);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* ============ DELIVERIES ============ */
+        .delivery-card {
+            background: var(--white);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--primary-teal);
+        }
+
+        .delivery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .delivery-patient {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .delivery-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(45, 191, 168, 0.1);
+            color: var(--primary-teal);
+        }
+
+        .delivery-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .delivery-medicine {
+            padding: 8px 12px;
+            background: var(--light-bg);
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .delivery-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.primary {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: var(--light-bg);
+            color: var(--text-dark);
+            border: 1px solid #E8EEF5;
+        }
+
+        .action-btn.secondary:hover {
+            background: #E8EEF5;
+        }
+
+        /* ============ INVOICES ============ */
+        .invoice-card {
+            background: var(--white);
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .invoice-id {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .invoice-amount {
+            font-size: 18px;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .invoice-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 12px;
+            margin-bottom: 12px;
+            padding: 12px 0;
+            border-top: 1px solid #E8EEF5;
+            border-bottom: 1px solid #E8EEF5;
+        }
+
+        .invoice-detail-item {
+            color: var(--text-light);
+        }
+
+        .invoice-detail-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .invoice-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #E8EEF5;
+            background: var(--white);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .icon-btn:hover {
+            background: var(--light-bg);
+            border-color: var(--primary-blue);
+        }
+
+        /* ============ BOTTOM NAV ============ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border-top: 1px solid #E8EEF5;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-item:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ============ SEARCH & FILTERS ============ */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #E8EEF5;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        /* ============ CHARTS ============ */
+        .chart-container {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .simple-chart {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .bar {
+            background: var(--gradient);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            min-height: 20px;
+        }
+
+        .bar-label {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-light);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-card {
+                padding: 30px 20px;
+            }
+
+            .welcome-banner {
+                padding: 20px;
+            }
+
+            .welcome-banner h2 {
+                font-size: 22px;
+            }
+        }
+
+        /* ============ SCROLLBAR ============ */
+        .app-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .app-content::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+
+        .app-content::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 3px;
+        }
+
+        .app-content::-webkit-scrollbar-thumb:hover {
+            background: var(--dark-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ LOGIN SCREEN ============ -->
+    <div class="login-container" id="loginScreen">
+        <div class="login-card">
+            <div class="login-logo">
+                <div class="logo-icon">❤️</div>
+                <h1>MediTrack</h1>
+                <p>Cuidando tu Salud Integral</p>
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="tu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Rol de Usuario</label>
+                    <select required>
+                        <option value="">Selecciona tu rol</option>
+                        <option value="farmacist">Farmacéutico</option>
+                        <option value="manager">Gerente</option>
+                        <option value="logistics">Logístico</option>
+                        <option value="patient">Paciente</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="login-btn">Iniciar Sesión</button>
+            </form>
+
+            <div class="social-login">
+                <button class="social-btn" type="button">🔵</button>
+                <button class="social-btn" type="button">📘</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ APP CONTAINER ============ -->
+    <div class="app-container" id="appContainer">
+        <!-- HEADER -->
+        <div class="app-header">
+            <div class="header-title">MediTrack</div>
+            <div class="header-user">
+                <div class="user-avatar" id="userInitial">J</div>
+                <div class="user-info">
+                    <h3 id="userName">Juan</h3>
+                    <p id="userRole">Farmacéutico</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="app-content">
+            <!-- DASHBOARD SCREEN -->
+            <div class="screen active" id="dashboardScreen">
+                <div class="screen-padding">
+                    <div class="welcome-banner">
+                        <h2>¡Hola, Juan! 👋</h2>
+                        <p>Bienvenido al panel de control de medicamentos</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">💊</div>
+                            <div class="stat-value">1,250</div>
+                            <div class="stat-label">Medicamentos en Stock</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-value">8</div>
+                            <div class="stat-label">Alertas Activas</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">Entregas Pendientes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📄</div>
+                            <div class="stat-value">$125K</div>
+                            <div class="stat-label">Facturación Mensual</div>
+                        </div>
+                    </div>
+
+                    <div class="section-title">⚠️ Alertas Críticas</div>
+                    <div class="alert-item critical">
+                        <div class="alert-content">
+                            <h4>Stock crítico: Ibuprofeno</h4>
+                            <p>Quedan 15 unidades. Mínimo: 50</p>
+                        </div>
+                        <div class="alert-badge critical">Crítico</div>
+                    </div>
+
+                    <div class="alert-item">
+                        <div class="alert-content">
+                            <h4>Entrega completada</h4>
+                            <p>Entrega #3421 finalizada hoy</p>
+                        </div>
+                        <div class="alert-badge success" style="background: var(--success);">Completado</div>
+                    </div>
+
+                    <div class="alert-item">
+                        <div class="alert-content">
+                            <h4>Stock bajo: Paracetamol</h4>
+                            <p>45 unidades disponibles</p>
+                        </div>
+                        <div class="alert-badge">Bajo</div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">Vendido esta semana</div>
+                        <div class="simple-chart">
+                            <div>
+                                <div class="bar" style="height: 120px;"></div>
+                                <div class="bar-label">Lun</div>
+                            </div>
+                            <div>
+                                <div class="bar" style="height: 95px;"></div>
+                                <div class="bar-label">Mar</div>
+                            </div>
+                            <div>
+                                <div class="bar" style="height: 140px;"></div>
+                                <div class="bar-label">Mié</div>
+                            </div>
+                            <div>
+                                <div class="bar" style="height: 110px;"></div>
+                                <div class="bar-label">Jue</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOGISTICS SCREEN -->
+            <div class="screen" id="logisticsScreen">
+                <div class="screen-padding">
+                    <div style="margin-bottom: 20px;">
+                        <div class="section-title">📊 Inventario</div>
+                        <div class="search-box">
+                            <input type="text" class="search-input" placeholder="Buscar medicamento...">
+                            <button class="filter-btn">🔍</button>
+                        </div>
+                    </div>
+
+                    <div class="medicine-card">
+                        <div class="medicine-header">
+                            <div class="medicine-name">Ibuprofeno 400mg</div>
+                            <div class="medicine-status low">Bajo stock</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 15%;"></div>
+                        </div>
+                        <div class="medicine-info">
+                            <div class="info-item"><span class="info-label">Stock:</span> 15/50</div>
+                            <div class="info-item"><span class="info-label">Proveedor:</span> FarmaCorp</div>
+                        </div>
+                    </div>
+
+                    <div class="medicine-card">
+                        <div class="medicine-header">
+                            <div class="medicine-name">Paracetamol 500mg</div>
+                            <div class="medicine-status medium">Stock medio</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%;"></div>
+                        </div>
+                        <div class="medicine-info">
+                            <div class="info-item"><span class="info-label">Stock:</span> 125/250</div>
+                            <div class="info-item"><span class="info-label">Proveedor:</span> LabSalud</div>
+                        </div>
+                    </div>
+
+                    <div class="medicine-card">
+                        <div class="medicine-header">
+                            <div class="medicine-name">Amoxicilina 500mg</div>
+                            <div class="medicine-status high">Stock óptimo</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                        <div class="medicine-info">
+                            <div class="info-item"><span class="info-label">Stock:</span> 450/500</div>
+                            <div class="info-item"><span class="info-label">Proveedor:</span> PharmaCare</div>
+                        </div>
+                    </div>
+
+                    <div class="medicine-card">
+                        <div class="medicine-header">
+                            <div class="medicine-name">Metformina 850mg</div>
+                            <div class="medicine-status high">Stock óptimo</div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                        </div>
+                        <div class="medicine-info">
+                            <div class="info-item"><span class="info-label">Stock:</span> 340/400</div>
+                            <div class="info-item"><span class="info-label">Proveedor:</span> DiabeticCare</div>
+                        </div>
+                    </div>
+
+                    <div class="section-title" style="margin-top: 30px;">📦 Entregas Recientes</div>
+
+                    <div class="delivery-card">
+                        <div class="delivery-header">
+                            <div class="delivery-patient">Carlos Mendoza</div>
+                            <div class="delivery-status">Entregado</div>
+                        </div>
+                        <div class="delivery-details">
+                            <div>
+                                <div class="info-label">Medicamento:</div>
+                                <div class="delivery-medicine">Ibuprofeno 400mg</div>
+                            </div>
+                            <div>
+                                <div class="info-label">Cantidad:</div>
+                                <div class="info-item">30 unidades</div>
+                            </div>
+                        </div>
+                        <div class="delivery-actions">
+                            <button class="action-btn secondary">📷 Foto</button>
+                            <button class="action-btn secondary">📝 Detalles</button>
+                        </div>
+                    </div>
+
+                    <div class="delivery-card">
+                        <div class="delivery-header">
+                            <div class="delivery-patient">María García</div>
+                            <div class="delivery-status">Entregado</div>
+                        </div>
+                        <div class="delivery-details">
+                            <div>
+                                <div class="info-label">Medicamento:</div>
+                                <div class="delivery-medicine">Paracetamol 500mg</div>
+                            </div>
+                            <div>
+                                <div class="info-label">Cantidad:</div>
+                                <div class="info-item">20 unidades</div>
+                            </div>
+                        </div>
+                        <div class="delivery-actions">
+                            <button class="action-btn secondary">📷 Foto</button>
+                            <button class="action-btn secondary">📝 Detalles</button>
+                        </div>
+                    </div>
+
+                    <div class="delivery-card">
+                        <div class="delivery-header">
+                            <div class="delivery-patient">Roberto López</div>
+                            <div class="delivery-status">Pendiente</div>
+                        </div>
+                        <div class="delivery-details">
+                            <div>
+                                <div class="info-label">Medicamento:</div>
+                                <div class="delivery-medicine">Amoxicilina 500mg</div>
+                            </div>
+                            <div>
+                                <div class="info-label">Cantidad:</div>
+                                <div class="info-item">15 unidades</div>
+                            </div>
+                        </div>
+                        <div class="delivery-actions">
+                            <button class="action-btn primary">✅ Completar</button>
+                            <button class="action-btn secondary">❌ Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVOICES SCREEN -->
+            <div class="screen" id="invoicesScreen">
+                <div class="screen-padding">
+                    <div style="margin-bottom: 20px;">
+                        <div class="section-title">📄 Facturas</div>
+                        <div class="search-box">
+                            <input type="text" class="search-input" placeholder="Buscar factura...">
+                            <button class="filter-btn">📥</button>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-title">Ventas por mes</div>
+                        <div class="simple-chart">
+                            <div>
+                                <div class="bar" style="height: 80px;"></div>
+                                <div class="bar-label">Ene</div>
+                            </div>
+                            <div>
+                                <div class="bar" style="height: 120px;"></div>
+                                <div class="bar-label">Feb</div>
+                            </div>
+                            <div>
+                                <div class="bar" style="height: 160px;"></div>
+                                <div class="bar-label">Mar</div>
+                            </div>
+                            <div>
+                                <div class="bar" style="height: 140px;"></div>
+                                <div class="bar-label">Abr</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="invoice-card">
+                        <div class="invoice-header">
+                            <div class="invoice-id">Factura #2024-001</div>
+                            <div class="invoice-amount">$2,450</div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Fecha:</span> 2024-05-15
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Medicamentos:</span> 5 tipos
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Paciente:</span> Juan Pérez
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Estado:</span> Pagada
+                            </div>
+                        </div>
+                        <div class="invoice-actions">
+                            <button class="icon-btn">📥 Descargar</button>
+                            <button class="icon-btn">📧 Enviar</button>
+                            <button class="icon-btn">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="invoice-card">
+                        <div class="invoice-header">
+                            <div class="invoice-id">Factura #2024-002</div>
+                            <div class="invoice-amount">$1,890</div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Fecha:</span> 2024-05-14
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Medicamentos:</span> 3 tipos
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Paciente:</span> María García
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Estado:</span> Pagada
+                            </div>
+                        </div>
+                        <div class="invoice-actions">
+                            <button class="icon-btn">📥 Descargar</button>
+                            <button class="icon-btn">📧 Enviar</button>
+                            <button class="icon-btn">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="invoice-card">
+                        <div class="invoice-header">
+                            <div class="invoice-id">Factura #2024-003</div>
+                            <div class="invoice-amount">$3,120</div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Fecha:</span> 2024-05-13
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Medicamentos:</span> 7 tipos
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Paciente:</span> Roberto López
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Estado:</span> Pagada
+                            </div>
+                        </div>
+                        <div class="invoice-actions">
+                            <button class="icon-btn">📥 Descargar</button>
+                            <button class="icon-btn">📧 Enviar</button>
+                            <button class="icon-btn">👁️ Ver</button>
+                        </div>
+                    </div>
+
+                    <div class="invoice-card">
+                        <div class="invoice-header">
+                            <div class="invoice-id">Factura #2024-004</div>
+                            <div class="invoice-amount">$980</div>
+                        </div>
+                        <div class="invoice-details">
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Fecha:</span> 2024-05-12
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Medicamentos:</span> 2 tipos
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Paciente:</span> Ana Rodríguez
+                            </div>
+                            <div class="invoice-detail-item">
+                                <span class="invoice-detail-label">Estado:</span> Pendiente
+                            </div>
+                        </div>
+                        <div class="invoice-actions">
+                            <button class="icon-btn">📥 Descargar</button>
+                            <button class="icon-btn">📧 Enviar</button>
+                            <button class="icon-btn">👁️ Ver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPORTS SCREEN -->
+            <div class="screen" id="reportScreen">
+                <div class="screen-padding">
+                    <div class="section-title">📊 Reportes y Configuración</div>
+
+                    <div class="stat-card" style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 12px; font-weight: 700;">Resumen General</h3>
+                        <div class="medicine-info" style="gap: 15px;">
+                            <div>
+                                <div class="info-label">Total Medicamentos</div>
+                                <div class="info-item" style="font-size: 18px; color: var(--primary-blue); font-weight: 600;">1,250</div>
+                            </div>
+                            <div>
+                                <div class="info-label">Valor en Stock</div>
+                                <div class="info-item" style="font-size: 18px; color: var(--success); font-weight: 600;">$85,430</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 12px; font-weight: 700;">Últimas Entregas</h3>
+                        <div style="font-size: 13px; color: var(--text-light);">
+                            ✓ 45 entregas completadas este mes<br>
+                            ⏳ 8 entregas pendientes<br>
+                            ❌ 2 entregas canceladas
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 12px; font-weight: 700;">Facturación</h3>
+                        <div style="font-size: 13px; color: var(--text-light);">
+                            💰 Ingresos este mes: $45,250<br>
+                            📄 Total facturas: 127<br>
+                            ⏸️ Facturas pendientes: 3
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="margin-bottom: 15px;">
+                        <h3 style="margin-bottom: 12px; font-weight: 700;">Medicamentos Críticos</h3>
+                        <div style="font-size: 13px; color: var(--text-light);">
+                            ⚠️ Ibuprofeno 400mg<br>
+                            ⚠️ Aspirina 500mg<br>
+                            ⚠️ Dipirona 500mg
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3 style="margin-bottom: 12px; font-weight: 700;">Opciones</h3>
+                        <button class="action-btn primary" style="margin-bottom: 10px;">📊 Descargar Reporte PDF</button>
+                        <button class="action-btn secondary" style="margin-bottom: 10px;">🔐 Configuración de Cuenta</button>
+                        <button class="action-btn secondary" style="margin-bottom: 0;">🚪 Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTTOM NAVIGATION -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchScreen('dashboardScreen', 0)">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Inicio</div>
+            </button>
+            <button class="nav-item" onclick="switchScreen('logisticsScreen', 1)">
+                <div class="nav-icon">📦</div>
+                <div class="nav-label">Logística</div>
+            </button>
+            <button class="nav-item" onclick="switchScreen('invoicesScreen', 2)">
+                <div class="nav-icon">📄</div>
+                <div class="nav-label">Facturas</div>
+            </button>
+            <button class="nav-item" onclick="switchScreen('reportScreen', 3)">
+                <div class="nav-icon">⚙️</div>
+                <div class="nav-label">Más</div>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = event.target.querySelector('input[type="email"]').value;
+            const role = event.target.querySelector('select').value;
+            const userName = email.split('@')[0];
+            
+            // Hide login, show app
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('appContainer').classList.add('active');
+            
+            // Set user info
+            document.getElementById('userName').textContent = userName.charAt(0).toUpperCase() + userName.slice(1);
+            document.getElementById('userInitial').textContent = userName.charAt(0).toUpperCase();
+            
+            const roleNames = {
+                'farmacist': 'Farmacéutico',
+                'manager': 'Gerente',
+                'logistics': 'Logístico',
+                'patient': 'Paciente'
+            };
+            document.getElementById('userRole').textContent = roleNames[role];
+        }
+
+        function switchScreen(screenId, index) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update nav items
+            document.querySelectorAll('.nav-item').forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+    </script>
+</body>
+</html>
